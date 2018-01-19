@@ -1,13 +1,17 @@
-from flask import Flask, request
+from flask import Flask
 from flask import render_template
 from flask import redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
-
+from flask_wtf import FlaskForm
+from wtforms import StringField, IntegerField, SubmitField
+from wtforms.validators import DataRequired
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'super secret' # CSRF対策でtokenの生成に必要
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///books.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+
 db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
 
@@ -23,30 +27,28 @@ class Book(db.Model):
     def __repr__(self):
         return '<title %s>' % self.title
 
+class BookForm(FlaskForm):
+    title = StringField('title:', validators=[DataRequired()])
+    price = IntegerField('price:', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
-@app.route('/')
-def books_list():
+
+@app.route('/', methods=['GET', 'POST'])
+def list_books():
+    form = BookForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        price = form.price.data
+        form.title.data = ''
+        form.price.data = 0
+
+        book = Book(title, price)
+        db.session.add(book)
+        db.session.commit()
+
     books = Book.query.all()
     total_price = sum([i.price for i in books])
-    return render_template('books_list.html', books=books, total_price=total_price)
-
-
-@app.route('/add', methods=['POST'])
-def add_book():
-    title = request.form['title']
-    price = request.form['price']
-    if not title or not price:
-        return 'Error'
-
-    try:
-        price = int(price)
-    except:
-        return 'Error'
-
-    book = Book(title, price)
-    db.session.add(book)
-    db.session.commit()
-    return redirect('/')
+    return render_template('books_list.html', form=form, books=books, total_price=total_price)
 
 
 @app.route('/delete/<int:book_id>')
