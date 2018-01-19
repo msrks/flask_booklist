@@ -1,22 +1,55 @@
-書籍購入リスト
+{% extends "bootstrap/base.html" %}
 
-<ul>
-{% for book in books %}
-    <li>
-        ¥{{ book.price }}
-        {{ book.title }}
-        <a href="/delete/{{ book.id }}">Delete</a>
-    </li>
-{% endfor %}
+{% block title %}書籍購入リスト{% endblock %}
+
+{% block navbar %}
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" href="#!">Active</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#!">Link</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#!">Link</a>
+  </li>
 </ul>
+{% endblock %}
 
-<p>total price = ¥{{ total_price }} (< ¥100000)</p>
+{% block content %}
+<div class="container">
+    <h2>書籍購入リスト</h2>
 
-<form action="/add" method="post">
-    <input type="text" name="title" placeholder="title">
-    <input type="text" name="price" placeholder="price">
-    <br>
-    <input type="submit" value="add book">
-</form>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Price</th>
+          <th>Title</th>
+          <th>-</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for book in books %}
+        <tr>
+          <th scope="row">{{ book.id }}</th>
+          <td>¥{{ book.price }}</td>
+          <td>{{ book.title }}</td>
+          <td><a href="/delete/{{ book.id }}">Delete</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+    <p>total price = ¥{{ total_price }} (< ¥100000)</p>
+
+    <form action="/add" method="post">
+        <input type="text" name="title" placeholder="title">
+        <input type="text" name="price" placeholder="price">
+        <br>
+        <input type="submit" value="add book" class="btn btn-primary"></button>
+    </form>
+</div>
+{% endblock %}
 
 2018-01-19 @msrks <a href="https://github.com/msrks/flask_booklist">github</a>

@@ -2,13 +2,14 @@ from flask import Flask, request
 from flask import render_template
 from flask import redirect
 from flask_sqlalchemy import SQLAlchemy
+from flask_bootstrap import Bootstrap
 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///books.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
-
+bootstrap = Bootstrap(app)
 
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
