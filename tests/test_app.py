@@ -27,15 +27,21 @@ class TestApp(TestCase):
         self.assert_404(response)
 
     def test_add_book(self):
+        from datetime import datetime
         post_response = self.client.post(
             '/',
-            data={'title': 'hogebook', 'price': 3980}
+            data={'title': 'hogebook',
+                  'price': 3980,
+                  # 'when_added': datetime.strptime('2018/01/01 00:00:00', '%Y/%m/%d %H:%M:%S'),
+                  'who_added': 'shinzo_abe'}
         )
         self.assert_status(post_response, 200)
 
         books = Book.query.all()
         self.assertEqual('hogebook', books[0].title)
         self.assertEqual(3980, books[0].price)
+        # self.assertEqual(datetime.strptime('2018/01/01 00:00:00', '%Y/%m/%d %H:%M:%S'), books[0].when_added)
+        self.assertEqual('shinzo_abe', books[0].who_added)
 
         response = self.client.get('/')
         self.assert_200(response)

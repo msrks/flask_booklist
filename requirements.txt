@@ -3,3 +3,4 @@ Flask-SQLAlchemy
 Flask-Bootstrap
 Flask-WTF
 Flask-Testing
+Flask-Migrate

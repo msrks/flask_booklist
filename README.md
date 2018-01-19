@@ -22,9 +22,17 @@ $ source venv/bin/activate
 
 #### 3. run app & open http://localhost:5000
 
-```bash
+```
 (venv) $ export FLASK_APP=booklist.py
 (venv) $ flask run
+```
+
+#### (if database changed) migrate database
+
+```
+(venv) $ flask db init #(first time only)
+(venv) $ db migrate -m "<commit_message>"
+(venv) $ flask db upgrade
 ```
 
 ### How to Contribute

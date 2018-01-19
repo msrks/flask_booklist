@@ -10,10 +10,10 @@ def list_books():
     if form.validate_on_submit():
         title = form.title.data
         price = form.price.data
+        who_added = form.who_added.data
         form.title.data = ''
-        form.price.data = 0
 
-        book = Book(title=title, price=price)
+        book = Book(title=title, price=price, who_added=who_added)
         db.session.add(book)
         db.session.commit()
 
