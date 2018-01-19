@@ -1,5 +1,7 @@
 ## 書籍購入リスト管理アプリ
 
+[![CircleCI](https://circleci.com/gh/msrks/circle_ci_test.svg?style=svg)](https://circleci.com/gh/msrks/circle_ci_test)
+
 初回はデータベースを新規に作成
 
 ```
