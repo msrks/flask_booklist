@@ -1,21 +1,30 @@
-## 書籍購入リスト管理アプリ
-
-### Usage
+## Booklist Management App
 
 [![CircleCI](https://circleci.com/gh/msrks/circle_ci_test.svg?style=svg)](https://circleci.com/gh/msrks/circle_ci_test)
 
-初回はデータベースを新規に作成
+### Usage
+
+#### 1. configure environment
 
 ```
-$ python
+$ python3 -m venv venv
+$ source venv/bin/activate
+(venv) $ pip install -r requirements.txt
+```
+
+#### 2. create new database (first time only)
+
+```
+(venv) $ python
 >>> from app import db
 >>> db.create_all()
 ```
 
-アプリの起動は以下のコマンドを叩いて、http://localhost:5000にアクセス
+#### 3. run app & open http://localhost:5000
 
 ```bash
-$ python app.py
+(venv) $ export FLASK_APP=booklist.py
+(venv) $ flask run
 ```
 
 ### How to Contribute
