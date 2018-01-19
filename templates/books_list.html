@@ -1,0 +1,22 @@
+書籍購入リスト
+
+<ul>
+{% for book in books %}
+    <li>
+        ¥{{ book.price }}
+        {{ book.title }}
+        <a href="/delete/{{ book.id }}">Delete</a>
+    </li>
+{% endfor %}
+</ul>
+
+<p>total price = ¥{{ total_price }} (< ¥100000)</p>
+
+<form action="/add" method="post">
+    <input type="text" name="title" placeholder="title">
+    <input type="text" name="price" placeholder="price">
+    <br>
+    <input type="submit" value="add book">
+</form>
+
+2018-01-19 @msrks <a href="https://github.com/msrks/flask_booklist">github</a>
