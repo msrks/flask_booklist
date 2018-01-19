@@ -1,5 +1,7 @@
 ## 書籍購入リスト管理アプリ
 
+### Usage
+
 [![CircleCI](https://circleci.com/gh/msrks/circle_ci_test.svg?style=svg)](https://circleci.com/gh/msrks/circle_ci_test)
 
 初回はデータベースを新規に作成
@@ -15,3 +17,7 @@ $ python
 ```bash
 $ python app.py
 ```
+
+### How to Contribute
+
+please read [CONTRIBUTING.md](CONTRIBUTING.md) 
